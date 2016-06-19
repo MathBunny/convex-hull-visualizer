@@ -18,27 +18,32 @@ import java.util.ArrayList;
  * Created by Horatiu on 18/06/2016.
  */
 
-public class GridView extends View implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+public class GridView extends View{
     private Paint paint;
     private Grid grid;
+    private Canvas canvas;
     public static final String DOT_COLOR = "#f44336";
     private GestureDetectorCompat mDetector;
     private ArrayList<Coordinate> points;
+    private MainActivity main;
 
     private int xStart = 0;
     private int yStart = 0;
     private int skip = 50;
 
-    public GridView(Context context) {
+    public GridView(Context context, Grid grid) {
         super(context);
+        this.grid = grid;
         paint = new Paint();
-        grid = new Grid(getWidth(), getHeight());
         points = new ArrayList<Coordinate>();
     }
 
     protected void onDraw(Canvas canvas) {
         // TODO Auto-generated method stub
         super.onDraw(canvas);
+        this.canvas = canvas;
+        if (grid == null)
+            grid = new Grid(getWidth(), getHeight());
         int x = getWidth();
         int y = getHeight();
         int radius;
@@ -49,83 +54,49 @@ public class GridView extends View implements GestureDetector.OnGestureListener,
         canvas.drawPaint(paint);
         // Use Color.parseColor to define HTML colors
         paint.setColor(Color.parseColor(DOT_COLOR));
-        canvas.drawCircle(x / 2, y / 2, radius, paint);
+        Log.d("EXECUTED", "executed");
+        refresh();
+        //canvas.drawCircle(x / 2, y / 2, radius, paint);
     }
 
-    public void refresh(Canvas canvas){
-        int xIter = 0;
-        int yIter = 0;
-        for(int x = xStart; x < grid.getWidth(); x+= skip){
-            for(int y = yStart; y < grid.getHeight(); y += skip){
+    public void refresh(){
+        paint.setColor(Color.BLUE);
+        int xIter = xStart;
+        int yIter = yStart;
+        for(int x = 0; x < grid.getWidth(); x+= skip){
+            for(int y = 0; y < grid.getHeight(); y += skip){
                 //render if available
                 if (grid.getValue(xIter, yIter)){
                     //render a circle, at coordinate (x, y)
+                    Log.d("canvas", (canvas == null) + "");
                     canvas.drawCircle(x, y, skip/2, paint);
+                    Log.d("Refresh", "Drawn!");
                 }
                 yIter++;
+                Log.d("iter", xIter + " " + yIter);
             }
+            yIter = 0; //this is the issue
             xIter++;
-
         }
+        canvas.drawCircle(200, 200, 100, paint);
+        Log.d("Refresh", "Refrshed!");
+        invalidate();
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        this.mDetector.onTouchEvent(event);
-        return true;
+    public Grid getGrid(){
+        return grid;
     }
 
-    @Override
-    public boolean onDown(MotionEvent event) {
-        Log.d("Sensor","onDown: " + event.toString());
-        return true;
+    public int getXStart(){
+        return xStart;
     }
 
-    @Override
-    public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
-        Log.d("Sensor", "onFling: " + event1.toString()+event2.toString());
-        return true;
+    public int getYStart(){
+        return yStart;
     }
 
-    @Override
-    public void onLongPress(MotionEvent event) {
-        Log.d("Sensor", "onLongPress: " + event.toString());
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-                            float distanceY) {
-        Log.d("Sensor", "onScroll: " + e1.toString()+e2.toString());
-        return true;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent event) {
-        Log.d("Sensor", "onShowPress: " + event.toString());
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent event) {
-        Log.d("Sensor", "onSingleTapUp: " + event.toString());
-        return true;
-    }
-
-    @Override
-    public boolean onDoubleTap(MotionEvent event) {
-        Log.d("Sensor", "onDoubleTap: " + event.toString());
-        return true;
-    }
-
-    @Override
-    public boolean onDoubleTapEvent(MotionEvent event) {
-        Log.d("Sensor", "onDoubleTapEvent: " + event.toString());
-        return true;
-    }
-
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent event) {
-        Log.d("Sensor", "onSingleTapConfirmed: " + event.toString());
-        return true;
+    public int getSkip(){
+        return skip;
     }
 
 }
