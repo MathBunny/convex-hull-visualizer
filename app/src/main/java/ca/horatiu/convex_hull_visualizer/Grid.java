@@ -8,11 +8,20 @@ public class Grid {
     private boolean [][] matrix;
     private int width;
     private int height;
+    private Coordinate [] hull;
 
     public Grid(int width, int height){
         matrix = new boolean[width][height];
         this.width = width;
         this.height = height;
+    }
+
+    public void setHull(Coordinate [] hull){
+        this.hull = hull;
+    }
+
+    public Coordinate [] getHull(){
+        return hull;
     }
 
     public int getWidth(){

@@ -9,6 +9,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
+import java.util.ArrayList;
+
 public class MainActivity extends ActionBarActivity implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
     private GestureDetectorCompat mDetector;
@@ -16,9 +18,15 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
     GridView gridRenderer;
     private Grid grid;
     private Settings settings;
+    private ArrayList<Coordinate> points = new ArrayList<Coordinate>();
+    private static Hull hull; //ehh, seems a bit sketchy lol.
 
     public void setGrid(Grid grid){
         this.grid = grid;
+    }
+
+    public Settings getSettings(){
+        return settings;
     }
 
     public void setStartX(int x){
@@ -36,11 +44,14 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         refresh();
     }
 
+    public static Hull getHull(){
+        return hull;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        settings = new Settings(0, 0, 5);
+        settings = new Settings(0, 0, 10);
         gridRenderer = new GridView(this, grid, settings);
         setContentView(gridRenderer);
 
@@ -95,6 +106,14 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
     @Override
     public boolean onDoubleTap(MotionEvent event) {
         Log.d("Sensor", "onDoubleTap: " + event.toString());
+        //compute?
+        Coordinate [] arr = new Coordinate[points.size()];
+        for(int x = 0; x < points.size(); x++){
+            arr[x] = points.get(x);
+        }
+        GrahamScan solve = new GrahamScan(arr); //return the size?
+        hull = new Hull(solve.solve());
+        refresh();
         return true;
     }
 
@@ -123,6 +142,7 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
             grid = new Grid(gridRenderer.getWidth(), gridRenderer.getHeight());
         }
         grid.setTrue(xIndex, yIndex);
+        points.add(new Coordinate(xPos, yPos)); //change coordinates?
         gridRenderer = new GridView(this, grid, settings);
         setContentView(gridRenderer);
 

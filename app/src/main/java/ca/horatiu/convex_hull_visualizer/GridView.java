@@ -24,9 +24,9 @@ public class GridView extends View{
     private Canvas canvas;
     public static final String DOT_COLOR = "#f44336";
     private GestureDetectorCompat mDetector;
-    private ArrayList<Coordinate> points;
     private MainActivity main;
     private Settings settings;
+    private ArrayList<Coordinate> points;
 
     private int xStart = 0;
     private int yStart = 0;
@@ -40,9 +40,14 @@ public class GridView extends View{
         xStart = settings.getXStart();
         yStart = settings.getYStart();
         skip = settings.getSkip();
+        this.points = settings.getPoints();
 
         paint = new Paint();
         points = new ArrayList<Coordinate>();
+    }
+
+    public ArrayList<Coordinate> getPoints(){
+        return points;
     }
 
     protected void onDraw(Canvas canvas) {
@@ -61,12 +66,27 @@ public class GridView extends View{
         canvas.drawPaint(paint);
         // Use Color.parseColor to define HTML colors
         paint.setColor(Color.parseColor(DOT_COLOR));
-        Log.d("EXECUTED", "executed");
         refresh();
         //canvas.drawCircle(x / 2, y / 2, radius, paint);
     }
 
+    public void drawHull(){
+        Log.d("OK", "OK!");
+        Hull hull = MainActivity.getHull();
+        if (hull == null)
+            return;
+        paint.setColor(Color.GREEN);
+        //generate points and then wrap around!
+        for(int x = 0; x < hull.getPoints().length-1; x++){
+            canvas.drawLine(hull.getPoints()[x].getX(), hull.getPoints()[x].getY(), hull.getPoints()[x+1].getX(), hull.getPoints()[x+1].getY(), paint);
+        }
+        //Last line :-)
+        canvas.drawLine(hull.getPoints()[0].getX(), hull.getPoints()[0].getY(), hull.getPoints()[hull.getPoints().length-1].getX(), hull.getPoints()[hull.getPoints().length-1].getY(), paint);
+    }
+
     public void refresh(){
+        if (canvas == null)
+            return;
         paint.setColor(Color.BLUE);
         int xIter = xStart;
         int yIter = yStart;
@@ -75,17 +95,14 @@ public class GridView extends View{
                 //render if available
                 if (grid.getValue(xIter, yIter)){
                     //render a circle, at coordinate (x, y)
-                    Log.d("canvas", (canvas == null) + "");
                     canvas.drawCircle(x, y, skip/2, paint);
-                    Log.d("Refresh", "Drawn!");
                 }
                 yIter++;
-                Log.d("iter", xIter + " " + yIter);
             }
             yIter = 0; //this is the issue
             xIter++;
         }
-        Log.d("Refresh", "Refrshed!");
+        drawHull();
         invalidate();
     }
 
