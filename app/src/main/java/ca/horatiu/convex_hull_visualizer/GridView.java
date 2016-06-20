@@ -26,14 +26,21 @@ public class GridView extends View{
     private GestureDetectorCompat mDetector;
     private ArrayList<Coordinate> points;
     private MainActivity main;
+    private Settings settings;
 
     private int xStart = 0;
     private int yStart = 0;
-    private int skip = 50;
+    private int skip = 10;
 
-    public GridView(Context context, Grid grid) {
+    public GridView(Context context, Grid grid, Settings settings) {
         super(context);
         this.grid = grid;
+        this.settings = settings;
+
+        xStart = settings.getXStart();
+        yStart = settings.getYStart();
+        skip = settings.getSkip();
+
         paint = new Paint();
         points = new ArrayList<Coordinate>();
     }
@@ -78,7 +85,6 @@ public class GridView extends View{
             yIter = 0; //this is the issue
             xIter++;
         }
-        canvas.drawCircle(200, 200, 100, paint);
         Log.d("Refresh", "Refrshed!");
         invalidate();
     }

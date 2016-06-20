@@ -15,16 +15,35 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
     ScaleGestureDetector scaleGestureDetector;
     GridView gridRenderer;
     private Grid grid;
+    private Settings settings;
 
     public void setGrid(Grid grid){
         this.grid = grid;
     }
 
+    public void setStartX(int x){
+        settings.setXStart(x);
+        refresh();
+    }
+
+    public void setStartY(int y){
+        settings.setYStart(y);
+        refresh();
+    }
+
+    public void setSkip(int skip){
+        settings.setSkip(skip);
+        refresh();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        gridRenderer = new GridView(this, grid);
+        settings = new Settings(0, 0, 5);
+        gridRenderer = new GridView(this, grid, settings);
         setContentView(gridRenderer);
+
         //setContentView(R.layout.activity_main);
 
         scaleGestureDetector = new ScaleGestureDetector(this, new ca.horatiu.convex_hull_visualizer.MyOnScaleGestureListener(this));
@@ -104,10 +123,18 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
             grid = new Grid(gridRenderer.getWidth(), gridRenderer.getHeight());
         }
         grid.setTrue(xIndex, yIndex);
-        gridRenderer = new GridView(this, grid);
+        gridRenderer = new GridView(this, grid, settings);
         setContentView(gridRenderer);
 
 
         return true;
+    }
+
+    private void refresh(){
+        if (grid == null){
+            grid = new Grid(gridRenderer.getWidth(), gridRenderer.getHeight());
+        }
+        gridRenderer = new GridView(this, grid, settings);
+        setContentView(gridRenderer);
     }
 }

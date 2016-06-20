@@ -21,7 +21,8 @@ public class MyOnScaleGestureListener extends SimpleOnScaleGestureListener{
 
     @Override
     public boolean onScale(ScaleGestureDetector detector) {
-        
+        Log.d("size", detector.getScaleFactor() + "");
+        main.setSkip((int)detector.getScaleFactor());
         return true;
     }
 
