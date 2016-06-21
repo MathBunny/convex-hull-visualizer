@@ -13,12 +13,10 @@ public class GrahamScan {
 
     public GrahamScan(Coordinate [] points){
         this.arr = points;
-        Log.d("size:", points.length + "");
     }
 
     public Coordinate [] solve(){
         int N = arr.length;
-        Log.d("Gr", N + " nodes");
         int minX = Integer.MAX_VALUE;
         int minY = Integer.MAX_VALUE;
         int value = 0; //minimum value
@@ -35,13 +33,9 @@ public class GrahamScan {
             if (x == value)
                 continue;
             if (arr[x].getX() == minX){
-                arr[x].setAngle(0); //fix 0 -> 90
+                arr[x].setAngle(0); //fix 0 -> 90 WAIT .. THIS SHOULD BE 90 FIX?
             }
-            //else if (arr[x].getX() < minX){ //negative! <-- error is here
-            //      arr[x].setAngle(Math.atan((double)(arr[x].getY()-minY)/(minX - arr[x].getX())));
-            //}
             else{
-                //arr[x].setAngle(-1 * Math.atan((double)(arr[x].getY()-minY) /(arr[x].getX() - minX)));
                 arr[x].setAngle(Math.atan2((double)(arr[x].getY()-minY), (double)(arr[x].getX() - minX)));
             }
         }
@@ -79,7 +73,6 @@ public class GrahamScan {
                     break;
                 }
                 else{
-                    Log.d("Gr", "Remove: " + p1 + " with: " + p0 + ", " + p1 + " = " + p2 + "\n\n");
                     //remove the last candidate
                     Q.push(p0);
                     Q.push(p2);
