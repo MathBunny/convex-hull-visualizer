@@ -71,7 +71,6 @@ public class GridView extends View{
     }
 
     public void drawHull(){
-        Log.d("OK", "OK!");
         Hull hull = MainActivity.getHull();
         if (hull == null)
             return;

@@ -14,17 +14,21 @@ class Main{
     }
 
     public Main(){
-        Coordinate a = new Coordinate(0, 6);
-        Coordinate b = new Coordinate(2, 1);
-        Coordinate c = new Coordinate(4, 0);
-        Coordinate d = new Coordinate(5, 4);
+        Coordinate a = new Coordinate(0, 0);
+        Coordinate b = new Coordinate(1, 1);
+        Coordinate e = new Coordinate(3, 3);
+        Coordinate c = new Coordinate(2, 2);
+        Coordinate d = new Coordinate(2, 1);
+        Coordinate f = new Coordinate(4, 4);
 
 
-        Coordinate [] arr = new Coordinate[4];
+        Coordinate [] arr = new Coordinate[6];
         arr[0] = a;
-        arr[1] = b;
+        arr[1] = e;
         arr[2] = c;
         arr[3] = d;
+        arr[4] = b;
+        arr[5] = f;
 
         int N = arr.length;
 
@@ -44,19 +48,15 @@ class Main{
             if (x == value)
                 continue;
             if (arr[x].getX() == minX){
-                arr[x].setAngle(90); //0? 90 b4
+                arr[x].setAngle(90);
             }
             //else if (arr[x].getX() < minX){ //negative! <-- error is here
             //      arr[x].setAngle(Math.atan((double)(arr[x].getY()-minY)/(minX - arr[x].getX())));
-            //      System.out.println(arr[x].getAngle());
             //}
             else{
-                //arr[x].setAngle(-1 * Math.atan((double)(arr[x].getY()-minY) /(arr[x].getX() - minX))); //very sketchy.
-                arr[x].setAngle(Math.atan2((double)(arr[x].getY()-minY), (double)(arr[x].getX() - minX)));
-                System.out.println(arr[x].getAngle());
+                arr[x].setAngle(Math.atan((double)(arr[x].getY()-minY) /(arr[x].getX() - minX)));
             }
         }
-        System.out.println("---");
 
         Arrays.sort(arr);
         for(int x = 0; x < arr.length; x++){
@@ -80,7 +80,6 @@ class Main{
                 Coordinate p2 = Q.pop();
                 Coordinate p1 = Q.pop();
                 Coordinate p0 = Q.pop();
-                System.out.println(p0 + " - " +  p1 + " - " + p2);
                 Vector p0p1 = new Vector(p1.getX()-p0.getX(), p1.getY()-p0.getY());
                 Vector p1p2 = new Vector(p2.getX()-p1.getX(), p2.getY()-p1.getY());
                 if (p0p1.turnsLeft(p1p2)){

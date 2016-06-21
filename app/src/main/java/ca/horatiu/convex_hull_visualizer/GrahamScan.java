@@ -18,7 +18,7 @@ public class GrahamScan {
 
     public Coordinate [] solve(){
         int N = arr.length;
-
+        Log.d("Gr", N + " nodes");
         int minX = Integer.MAX_VALUE;
         int minY = Integer.MAX_VALUE;
         int value = 0; //minimum value
@@ -35,13 +35,14 @@ public class GrahamScan {
             if (x == value)
                 continue;
             if (arr[x].getX() == minX){
-                arr[x].setAngle(90);
+                arr[x].setAngle(0); //fix 0 -> 90
             }
             //else if (arr[x].getX() < minX){ //negative! <-- error is here
             //      arr[x].setAngle(Math.atan((double)(arr[x].getY()-minY)/(minX - arr[x].getX())));
             //}
             else{
-                arr[x].setAngle(Math.atan((double)(arr[x].getY()-minY) /(arr[x].getX() - minX)));
+                //arr[x].setAngle(-1 * Math.atan((double)(arr[x].getY()-minY) /(arr[x].getX() - minX)));
+                arr[x].setAngle(Math.atan2((double)(arr[x].getY()-minY), (double)(arr[x].getX() - minX)));
             }
         }
 
@@ -51,7 +52,7 @@ public class GrahamScan {
                 //System.out.println(arr[x]);
             }
             else{
-                //System.out.println("START");
+                Log.d("Gr", arr[x].toString());
             }
         }
 
@@ -60,6 +61,8 @@ public class GrahamScan {
         Q.push(arr[1]);
         for(int x = 2; x < N; x++){
             Q.push(arr[x]);
+            if (N == 3) //odd..
+                break;
             while(true){
                 //check to see if arr[0]arr[1] vector angle with arr[1][2] is a right
                 if (Q.size() < 3)
@@ -76,7 +79,7 @@ public class GrahamScan {
                     break;
                 }
                 else{
-                    System.out.println("Remove: " + p1 + " with: " + p0 + ", " + p1 + " = " + p2 + "\n\n");
+                    Log.d("Gr", "Remove: " + p1 + " with: " + p0 + ", " + p1 + " = " + p2 + "\n\n");
                     //remove the last candidate
                     Q.push(p0);
                     Q.push(p2);

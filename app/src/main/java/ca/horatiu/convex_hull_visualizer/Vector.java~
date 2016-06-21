@@ -24,11 +24,9 @@ class Vector{
 
     /* Use cross product */
     public boolean turnsLeft(Vector v){
-        if (getY() * v.getX() < getX() * v.getY()){ //<=
-            System.out.println("Turns left: " + getY() * v.getX() + " " +  getX() * v.getY());
+        if (getY() * v.getX() < getX() * v.getY()){
             return true;
         }
-        System.out.println("Turns left: No! " + getY() * v.getX() + " " +  getX() * v.getY());
         return false;
     }
 }

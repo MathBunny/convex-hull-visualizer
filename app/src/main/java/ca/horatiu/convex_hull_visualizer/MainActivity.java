@@ -125,14 +125,11 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent event) {
-        Log.d("Sensor", "onSingleTapConfirmed: " + event.toString());
+        Log.d("SensorTap", "onSingleTapConfirmed: " + event.toString());
 
         //add here...
         int xPos = (int)event.getX();
         int yPos = (int)event.getY();
-
-
-
 
 
         int xIndex = (xPos/gridRenderer.getSkip() + gridRenderer.getXStart());
@@ -145,7 +142,6 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         points.add(new Coordinate(xPos, yPos)); //change coordinates?
         gridRenderer = new GridView(this, grid, settings);
         setContentView(gridRenderer);
-
 
         return true;
     }
