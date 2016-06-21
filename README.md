@@ -8,6 +8,6 @@ This application is currently under development. The purpose of the program is t
 
 ##Further Development
 * Include multi-touch gestures to zoom in/out
-* Include Grift-Wrapping Algorithm O(N^2)
+* Include Grift-Wrapping Algorithm O(N*H)
 * Include settings to change graphic settings
 * Add nice icon

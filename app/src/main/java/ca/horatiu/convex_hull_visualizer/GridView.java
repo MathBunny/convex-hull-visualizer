@@ -70,6 +70,10 @@ public class GridView extends View{
         //canvas.drawCircle(x / 2, y / 2, radius, paint);
     }
 
+    public void drawGrid(){
+        
+    }
+
     public void drawHull(){
         Hull hull = MainActivity.getHull();
         if (hull == null)

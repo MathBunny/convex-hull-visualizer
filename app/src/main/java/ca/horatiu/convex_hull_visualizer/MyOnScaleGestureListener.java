@@ -1,8 +1,5 @@
 package ca.horatiu.convex_hull_visualizer;
-import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener;
 
@@ -22,7 +19,20 @@ public class MyOnScaleGestureListener extends SimpleOnScaleGestureListener{
     @Override
     public boolean onScale(ScaleGestureDetector detector) {
         Log.d("size", detector.getScaleFactor() + "");
-        main.setSkip(((int)detector.getScaleFactor() > 0)?(main.getSettings().getSkip()+1):(main.getSettings().getSkip()-1));
+        int skipValue = main.getSettings().getSkip();
+
+        if ((int)detector.getScaleFactor() > 0){
+            if (skipValue < 100)
+                 skipValue++;
+            //skipValue = 20;
+        }
+        else{
+            if (skipValue > 5)
+                skipValue--;
+            //skipValue = 5;
+        }
+        main.setSkip(skipValue);
+        //main.setSkip(((int)detector.getScaleFactor() > 0)?(main.getSettings().getSkip()+1):(main.getSettings().getSkip()-1));
         return true;
     }
 

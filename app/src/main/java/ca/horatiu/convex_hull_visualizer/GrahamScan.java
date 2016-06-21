@@ -46,7 +46,7 @@ public class GrahamScan {
                 //System.out.println(arr[x]);
             }
             else{
-                Log.d("Gr", arr[x].toString());
+                //Log.d("Gr", arr[x].toString());
             }
         }
 

@@ -57,13 +57,14 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
 
         //setContentView(R.layout.activity_main);
 
-        scaleGestureDetector = new ScaleGestureDetector(this, new ca.horatiu.convex_hull_visualizer.MyOnScaleGestureListener(this));
+        scaleGestureDetector = new ScaleGestureDetector(this, new MyOnScaleGestureListener(this));
         mDetector = new GestureDetectorCompat(this,this);
         mDetector.setOnDoubleTapListener(this);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        scaleGestureDetector.onTouchEvent(event);
         this.mDetector.onTouchEvent(event);
         return true;
     }
