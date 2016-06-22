@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        settings = new Settings(0, 0, 10);
+        settings = new Settings(Settings.DEFAULT_START_X, Settings.DEFAULT_START_Y, Settings.DEFAULT_SKIP);
         gridRenderer = new GridView(this, grid, settings);
         setContentView(gridRenderer);
 
@@ -90,10 +90,12 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
         float distanceY) {
+        if (!Settings.SHOULD_MOVE)
+            return true;
         Log.d("Sensor", "onScroll: " + e1.toString()+e2.toString());
-        if (settings.getXStart()-(int)distanceX >= 0)
+        if (settings.getXStart()+(int)distanceX >= 0)
             setStartX(settings.getXStart()+(int)distanceX);
-        if (settings.getYStart()-(int)distanceY >= 0)
+        if (settings.getYStart()+(int)distanceY >= 0)
             setStartY(settings.getYStart()+(int)distanceY);
 
         return true;
@@ -133,20 +135,24 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
     @Override
     public boolean onSingleTapConfirmed(MotionEvent event) {
         Log.d("SensorTap", "onSingleTapConfirmed: " + event.toString());
-
         //add here...
         int xPos = (int)event.getX();
         int yPos = (int)event.getY();
 
 
+
         int xIndex = (xPos/gridRenderer.getSkip() + gridRenderer.getXStart());
         int yIndex = (yPos/gridRenderer.getSkip() + gridRenderer.getYStart());
-        Log.d("SensorVal", xIndex + " " + yIndex);
+
         if (grid == null){
             grid = new Grid(gridRenderer.getWidth(), gridRenderer.getHeight());
         }
-        grid.setTrue(xIndex, yIndex);
-        points.add(new Coordinate(xPos, yPos)); //change coordinates?
+        Log.d("Grid", xIndex + " " + yIndex + " : " + xPos + " " + yPos);
+        grid.setTrue(xIndex, yIndex); //update the grid this way... NOW CHANGE THE RENDERING FOR THE GRID SYSTEM!
+
+        points.add(new Coordinate(xPos, yPos, gridRenderer.getSkip())); //change coordinates? ADD GET SKIP -> OK
+
+
         gridRenderer = new GridView(this, grid, settings);
         setContentView(gridRenderer);
 

@@ -7,11 +7,13 @@ package ca.horatiu.convex_hull_visualizer;
 public class Coordinate implements Comparable<Coordinate> {
     private int x;
     private int y;
+    private int skip;
     private double angle = -Double.MAX_VALUE;
 
-    public Coordinate(int x, int y){
+    public Coordinate(int x, int y, int skip){
         this.x = x;
         this.y = y;
+        this.skip = skip;
     }
 
     public void setX(int x){
@@ -29,6 +31,8 @@ public class Coordinate implements Comparable<Coordinate> {
     public int getY(){
         return y;
     }
+
+    public int getSkip(){return skip;}
 
     public double getAngle(){
         return angle;

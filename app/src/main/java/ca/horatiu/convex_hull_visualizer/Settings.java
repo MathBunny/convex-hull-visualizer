@@ -11,6 +11,12 @@ public class Settings {
     private int skip;
     ArrayList<Coordinate> points;
 
+    public static boolean SHOULD_MOVE = false;
+    public static boolean SHOULD_SCALE = false;
+    public static int DEFAULT_START_X = 0;
+    public static int DEFAULT_START_Y = 0;
+    public static int DEFAULT_SKIP = 25;
+
     public Settings(int xStart, int yStart, int skip, ArrayList<Coordinate> points){
         this.xStart = xStart;
         this.yStart = yStart;

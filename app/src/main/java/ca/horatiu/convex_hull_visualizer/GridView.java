@@ -75,10 +75,12 @@ public class GridView extends View{
             return;
         paint.setColor(Color.GREEN);
         //generate points and then wrap around!
-        for(int x = 0; x < hull.getPoints().length-1; x++){
+        for(int x = 0; x < hull.getPoints().length-1; x++){ //test || NEW!
+            //canvas.drawLine(hull.getPoints()[x].getX()/getSkip() + xStart, hull.getPoints()[x].getY()/getSkip() + yStart, hull.getPoints()[x+1].getX()/getSkip() + xStart, hull.getPoints()[x+1].getY()/getSkip() + yStart, paint); //you need to fix this by taking into considering xStart and everything!
             canvas.drawLine(hull.getPoints()[x].getX(), hull.getPoints()[x].getY(), hull.getPoints()[x+1].getX(), hull.getPoints()[x+1].getY(), paint);
         }
         //Last line :-)
+        //canvas.drawLine(hull.getPoints()[0].getX()/getSkip() + xStart, hull.getPoints()[0].getY()/getSkip() + yStart, hull.getPoints()[hull.getPoints().length-1].getX()/getSkip() + xStart, hull.getPoints()[hull.getPoints().length-1].getY()/getSkip() + yStart, paint);
         canvas.drawLine(hull.getPoints()[0].getX(), hull.getPoints()[0].getY(), hull.getPoints()[hull.getPoints().length-1].getX(), hull.getPoints()[hull.getPoints().length-1].getY(), paint);
     }
 

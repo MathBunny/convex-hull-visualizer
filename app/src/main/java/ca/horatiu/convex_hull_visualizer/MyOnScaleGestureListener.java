@@ -31,7 +31,10 @@ public class MyOnScaleGestureListener extends SimpleOnScaleGestureListener{
                 skipValue--;
             //skipValue = 5;
         }
-        main.setSkip(skipValue);
+
+        //IGNORE ALL RESIZING FOR NOW!!!!! NO MORE!!!
+        if (Settings.SHOULD_SCALE)
+            main.setSkip(skipValue);
         //main.setSkip(((int)detector.getScaleFactor() > 0)?(main.getSettings().getSkip()+1):(main.getSettings().getSkip()-1));
         return true;
     }
