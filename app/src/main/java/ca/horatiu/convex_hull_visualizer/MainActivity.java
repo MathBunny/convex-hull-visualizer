@@ -1,5 +1,6 @@
 package ca.horatiu.convex_hull_visualizer;
 
+import android.graphics.PorterDuff;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,10 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Button;
+
 
 import java.util.ArrayList;
 
@@ -66,6 +70,32 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         scaleGestureDetector = new ScaleGestureDetector(this, new MyOnScaleGestureListener(this));
         mDetector = new GestureDetectorCompat(this,this);
         mDetector.setOnDoubleTapListener(this);
+
+        final Button settings = (Button) findViewById(R.id.settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // your handler code here
+            }
+        });
+
+        /*final Button reset = (Button) findViewById(R.id.rest);
+        reset.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // your handler code here
+                //canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+                points = new ArrayList<Coordinate>();
+                refresh();
+                Log.d("Refresh", "Refreshed!");
+            }
+        });*/
+
+
+    }
+
+    public void reset(View v){
+        points = new ArrayList<Coordinate>();
+        refresh();
+        Log.d("Refresh", "Refreshed!");
     }
 
     @Override

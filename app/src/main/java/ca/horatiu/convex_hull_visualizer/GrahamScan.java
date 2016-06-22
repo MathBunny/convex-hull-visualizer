@@ -17,6 +17,9 @@ public class GrahamScan {
 
     public Coordinate [] solve(){
         int N = arr.length;
+        if (N <= 1){
+            return arr;
+        }
         int minX = Integer.MAX_VALUE;
         int minY = Integer.MAX_VALUE;
         int value = 0; //minimum value
