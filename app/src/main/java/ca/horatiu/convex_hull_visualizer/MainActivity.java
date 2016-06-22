@@ -15,6 +15,7 @@ import android.widget.Button;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MainActivity extends ActionBarActivity implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
@@ -93,7 +94,13 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
     }
 
     public void reset(View v){
+        for(int x = 0; x < points.size(); x++){
+            grid.setFalse(points.get(x).getX(), points.get(x).getY());
+        }
         points = new ArrayList<Coordinate>();
+        grid.setPoints(new LinkedList<Coordinate>());
+        hull = new Hull(new Coordinate[]{});
+
         refresh();
         Log.d("Refresh", "Refreshed!");
     }
@@ -202,6 +209,7 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
 
         points.add(new Coordinate(xPos, yPos, gridRenderer.getSkip())); //change coordinates? ADD GET SKIP -> OK
 
+        grid.getPoints().add(new Coordinate(xPos, yPos, 1)); //standard...
 
         gridRenderer = new GridView(this, grid, settings);
         setContentView(R.layout.activity_main);

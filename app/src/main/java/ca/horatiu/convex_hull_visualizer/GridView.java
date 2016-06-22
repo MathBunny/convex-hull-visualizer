@@ -75,7 +75,7 @@ public class GridView extends View{
 
     public void drawHull(){
         Hull hull = MainActivity.getHull();
-        if (hull == null)
+        if (hull == null || hull.getPoints().length == 0)
             return;
         paint.setColor(Color.GREEN);
         //generate points and then wrap around!
@@ -91,6 +91,7 @@ public class GridView extends View{
     public void refresh(){
         if (canvas == null)
             return;
+        canvas.drawColor(Color.WHITE); //clear?
         paint.setColor(Color.BLUE);
         int xIter = xStart;
         int yIter = yStart;
@@ -99,31 +100,37 @@ public class GridView extends View{
         height = getHeight();
 
         int iter = (Settings.SHOULD_MOVE ? (skip) : (1));
-        for(int x = 0; x < grid.getWidth(); x+= iter){
-            for(int y = 0; y < grid.getHeight(); y += iter){
-                //render if available
-                if (Settings.SHOULD_MOVE) {
-                    if (grid.getValue(xIter, yIter)){ //xIter, yIter
-                        //render a circle, at coordinate (x, y)
-                        canvas.drawCircle(x, y, skip/2, paint);
-                        //Log.d("Tap!", x + " " + y);
+        if (Settings.SHOULD_MOVE) { //the rest of the variables are useless!
+            for (int x = 0; x < grid.getWidth(); x += iter) {
+                for (int y = 0; y < grid.getHeight(); y += iter) {
+                    //render if available
+                    if (Settings.SHOULD_MOVE) {
+                        if (grid.getValue(xIter, yIter)) { //xIter, yIter
+                            //render a circle, at coordinate (x, y)
+                            canvas.drawCircle(x, y, skip / 2, paint);
+                            //Log.d("Tap!", x + " " + y);
+                        }
+                    } else {
+                        if (grid.getValue(x, y)) { //xIter, yIter
+                            //render a circle, at coordinate (x, y)
+                            canvas.drawCircle(x, y, skip / 2, paint);
+                            //Log.d("Tap!", x + " " + y);
+                        }
                     }
-                }
-                else{
-                    if (grid.getValue(x, y)){ //xIter, yIter
-                        //render a circle, at coordinate (x, y)
-                        canvas.drawCircle(x, y, skip/2, paint);
-                        Log.d("Tap!", x + " " + y);
-                    }
-                }
 
-                yIter++;
+                    yIter++;
+                }
+                yIter = 0; //this is the issue
+                xIter++;
             }
-            yIter = 0; //this is the issue
-            xIter++;
+        }
+        else{ //use a LinkedList implementation instead .. lol
+            for(Coordinate a : grid.getPoints()){
+                canvas.drawCircle(a.getX(), a.getY(), skip / 2, paint);
+            }
         }
         drawHull();
-        invalidate();
+        //invalidate();
     }
 
     public Grid getGrid(){
