@@ -41,16 +41,8 @@ public class GrahamScan {
         }
 
         Arrays.sort(arr);
-        for(int x = 0; x < arr.length; x++){
-            if (arr[x].getAngle() != -Double.MAX_VALUE){
-                //System.out.println(arr[x]);
-            }
-            else{
-                //Log.d("Gr", arr[x].toString());
-            }
-        }
 
-        Stack<Coordinate> Q = new Stack<Coordinate>(); //perhaps remove the point (5,0)?
+        Stack<Coordinate> Q = new Stack<Coordinate>();
         Q.push(arr[0]);
         Q.push(arr[1]);
         for(int x = 2; x < N; x++){

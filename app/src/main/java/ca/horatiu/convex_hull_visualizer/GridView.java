@@ -56,10 +56,6 @@ public class GridView extends View{
         this.canvas = canvas;
         if (grid == null)
             grid = new Grid(getWidth(), getHeight());
-        int x = getWidth();
-        int y = getHeight();
-        int radius;
-        radius = 100;
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
@@ -67,7 +63,6 @@ public class GridView extends View{
         // Use Color.parseColor to define HTML colors
         paint.setColor(Color.parseColor(DOT_COLOR));
         refresh();
-        //canvas.drawCircle(x / 2, y / 2, radius, paint);
     }
 
     public void drawGrid(){
