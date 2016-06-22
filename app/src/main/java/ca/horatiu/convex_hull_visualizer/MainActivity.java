@@ -1,5 +1,6 @@
 package ca.horatiu.convex_hull_visualizer;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -93,11 +94,20 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
 
     }
 
+    public void settings(View v){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
     public void reset(View v){
+        if (points == null) //safety? no lol still crashes. odd..
+            return;
         for(int x = 0; x < points.size(); x++){
             grid.setFalse(points.get(x).getX(), points.get(x).getY());
         }
         points = new ArrayList<Coordinate>();
+        if (grid == null) //should this ever happen?
+            return;
         grid.setPoints(new LinkedList<Coordinate>());
         hull = new Hull(new Coordinate[]{});
 
