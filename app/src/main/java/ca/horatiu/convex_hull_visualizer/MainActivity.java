@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -53,7 +54,12 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         super.onCreate(savedInstanceState);
         settings = new Settings(Settings.DEFAULT_START_X, Settings.DEFAULT_START_Y, Settings.DEFAULT_SKIP);
         gridRenderer = new GridView(this, grid, settings);
-        setContentView(gridRenderer);
+        setContentView(R.layout.activity_main);
+
+        LinearLayout upper = (LinearLayout) findViewById(R.id.LinearLayout01);
+
+        upper.addView(gridRenderer);
+        //setContentView(gridRenderer);
 
         //setContentView(R.layout.activity_main);
 
@@ -134,11 +140,22 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent event) {
-        Log.d("SensorTap", "onSingleTapConfirmed: " + event.toString());
+        Log.d("SensorTap", "Tap!" + event.toString());
         //add here...
-        int xPos = (int)event.getX();
-        int yPos = (int)event.getY();
+        int xPos = (int)event.getRawX(); //why? wtf lol
+        int yPos = (int)event.getRawY() - 150;
 
+        yPos = Math.max(0, yPos);
+
+
+        /* Error trap :) */
+        if (xPos > GridView.width){
+            xPos = GridView.width-1;
+        }
+
+        if (yPos > GridView.height){
+            yPos = GridView.height-1;
+        }
 
 
         int xIndex = (xPos/gridRenderer.getSkip() + gridRenderer.getXStart());
@@ -148,13 +165,24 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
             grid = new Grid(gridRenderer.getWidth(), gridRenderer.getHeight());
         }
         Log.d("Grid", xIndex + " " + yIndex + " : " + xPos + " " + yPos);
-        grid.setTrue(xIndex, yIndex); //update the grid this way... NOW CHANGE THE RENDERING FOR THE GRID SYSTEM!
+        if (Settings.SHOULD_MOVE)
+            grid.setTrue(xIndex, yIndex); //update the grid this way... NOW CHANGE THE RENDERING FOR THE GRID SYSTEM!
+        else
+            grid.setTrue(xPos, yPos); //good enough
 
         points.add(new Coordinate(xPos, yPos, gridRenderer.getSkip())); //change coordinates? ADD GET SKIP -> OK
 
 
         gridRenderer = new GridView(this, grid, settings);
-        setContentView(gridRenderer);
+        setContentView(R.layout.activity_main);
+
+        LinearLayout upper = (LinearLayout) findViewById(R.id.LinearLayout01);
+
+        upper.addView(gridRenderer);
+
+        //no!
+
+        //setContentView(gridRenderer);
 
         return true;
     }
@@ -164,6 +192,11 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
             grid = new Grid(gridRenderer.getWidth(), gridRenderer.getHeight());
         }
         gridRenderer = new GridView(this, grid, settings);
-        setContentView(gridRenderer);
+        gridRenderer = new GridView(this, grid, settings);
+        setContentView(R.layout.activity_main);
+
+        LinearLayout upper = (LinearLayout) findViewById(R.id.LinearLayout01);
+
+        upper.addView(gridRenderer);
     }
 }

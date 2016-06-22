@@ -28,6 +28,9 @@ public class GridView extends View{
     private Settings settings;
     private ArrayList<Coordinate> points;
 
+    public static int width; //size of the canvas
+    public static int height;
+
     private int xStart = 0;
     private int yStart = 0;
     private int skip = 10;
@@ -90,13 +93,29 @@ public class GridView extends View{
         paint.setColor(Color.BLUE);
         int xIter = xStart;
         int yIter = yStart;
-        for(int x = 0; x < grid.getWidth(); x+= skip){
-            for(int y = 0; y < grid.getHeight(); y += skip){
+
+        width = getWidth();
+        height = getHeight();
+
+        int iter = (Settings.SHOULD_MOVE ? (skip) : (1));
+        for(int x = 0; x < grid.getWidth(); x+= iter){
+            for(int y = 0; y < grid.getHeight(); y += iter){
                 //render if available
-                if (grid.getValue(xIter, yIter)){
-                    //render a circle, at coordinate (x, y)
-                    canvas.drawCircle(x, y, skip/2, paint);
+                if (Settings.SHOULD_MOVE) {
+                    if (grid.getValue(xIter, yIter)){ //xIter, yIter
+                        //render a circle, at coordinate (x, y)
+                        canvas.drawCircle(x, y, skip/2, paint);
+                        //Log.d("Tap!", x + " " + y);
+                    }
                 }
+                else{
+                    if (grid.getValue(x, y)){ //xIter, yIter
+                        //render a circle, at coordinate (x, y)
+                        canvas.drawCircle(x, y, skip/2, paint);
+                        Log.d("Tap!", x + " " + y);
+                    }
+                }
+
                 yIter++;
             }
             yIter = 0; //this is the issue

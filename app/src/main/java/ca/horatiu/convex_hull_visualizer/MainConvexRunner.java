@@ -14,10 +14,10 @@ class Main{
     }
 
     public Main(){
-        Coordinate a = new Coordinate(0, 6);
-        Coordinate b = new Coordinate(2, 1);
-        Coordinate c = new Coordinate(4, 0);
-        Coordinate d = new Coordinate(5, 4);
+        Coordinate a = new Coordinate(0, 6, 0);
+        Coordinate b = new Coordinate(2, 1, 0);
+        Coordinate c = new Coordinate(4, 0, 0);
+        Coordinate d = new Coordinate(5, 4, 0);
 
 
         Coordinate [] arr = new Coordinate[4];
