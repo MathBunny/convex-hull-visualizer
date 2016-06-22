@@ -83,6 +83,7 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
 
     @Override
     public void onLongPress(MotionEvent event) {
+        //calculate here? double tap to ..?
         Log.d("Sensor", "onLongPress: " + event.toString());
     }
 
@@ -90,6 +91,11 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
         float distanceY) {
         Log.d("Sensor", "onScroll: " + e1.toString()+e2.toString());
+        if (settings.getXStart()-(int)distanceX >= 0)
+            setStartX(settings.getXStart()+(int)distanceX);
+        if (settings.getYStart()-(int)distanceY >= 0)
+            setStartY(settings.getYStart()+(int)distanceY);
+
         return true;
     }
 
