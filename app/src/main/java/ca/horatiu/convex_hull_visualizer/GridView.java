@@ -62,6 +62,7 @@ public class GridView extends View{
             grid = new Grid(getWidth(), getHeight());
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
+        canvas.drawColor(Color.WHITE);
         paint.setColor(Color.WHITE);
         canvas.drawPaint(paint);
         // Use Color.parseColor to define HTML colors
@@ -78,6 +79,7 @@ public class GridView extends View{
         if (hull == null || hull.getPoints().length == 0)
             return;
         paint.setColor(Color.parseColor(Settings.EDGE_COLOR));
+        paint.setStrokeWidth(Settings.EDGE_WEIGHT);
         //generate points and then wrap around!
         for(int x = 0; x < hull.getPoints().length-1; x++){ //test || NEW!
             //canvas.drawLine(hull.getPoints()[x].getX()/getSkip() + xStart, hull.getPoints()[x].getY()/getSkip() + yStart, hull.getPoints()[x+1].getX()/getSkip() + xStart, hull.getPoints()[x+1].getY()/getSkip() + yStart, paint); //you need to fix this by taking into considering xStart and everything!
@@ -91,7 +93,9 @@ public class GridView extends View{
     public void refresh(){
         if (canvas == null)
             return;
+
         canvas.drawColor(Color.WHITE); //clear?
+        drawHull();
         paint.setColor(Color.parseColor(Settings.NODE_COLOR));
         int xIter = xStart;
         int yIter = yStart;
@@ -129,7 +133,7 @@ public class GridView extends View{
                 canvas.drawCircle(a.getX(), a.getY(), settings.SKIP_VALUE/2, paint); //skip / 2 or Settings.SKIP?
             }
         }
-        drawHull();
+
         //invalidate();
     }
 

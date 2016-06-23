@@ -21,20 +21,36 @@ public class MyOnScaleGestureListener extends SimpleOnScaleGestureListener{
         Log.d("size", detector.getScaleFactor() + "");
         int skipValue = main.getSettings().getSkip();
 
-        if ((int)detector.getScaleFactor() > 0){
+        if (detector.getScaleFactor() > 1.0){
             if (skipValue < 100)
                  skipValue++;
+
+            if (Settings.EDGE_WEIGHT < 80){
+                Settings.EDGE_WEIGHT++;
+            }
+            if (Settings.SKIP_VALUE < 80){
+                Settings.SKIP_VALUE++;
+            }
+
             //skipValue = 20;
         }
         else{
             if (skipValue > 5)
                 skipValue--;
+
+            if (Settings.EDGE_WEIGHT >= 1){
+                Settings.EDGE_WEIGHT--;
+            }
+            if (Settings.SKIP_VALUE >= 1){
+                Settings.SKIP_VALUE--;
+            }
             //skipValue = 5;
         }
 
         //IGNORE ALL RESIZING FOR NOW!!!!! NO MORE!!!
         if (Settings.SHOULD_SCALE)
             main.setSkip(skipValue);
+        main.refresh();
         //main.setSkip(((int)detector.getScaleFactor() > 0)?(main.getSettings().getSkip()+1):(main.getSettings().getSkip()-1));
         return true;
     }

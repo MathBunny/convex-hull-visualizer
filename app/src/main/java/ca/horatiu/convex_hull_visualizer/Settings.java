@@ -23,8 +23,8 @@ public class Settings {
     public static String EDGE_COLOR = "#00e676";
     public static String NODE_COLOR_NAME = "Blue";
     public static String EDGE_COLOR_NAME = "Green";
-    public static int SKIP_VALUE = 10;
-    public static int EDGE_WEIGHT = 10;
+    public static int SKIP_VALUE = 25;
+    public static int EDGE_WEIGHT = 5;
 
     public Settings(int xStart, int yStart, int skip, ArrayList<Coordinate> points){
         this.xStart = xStart;

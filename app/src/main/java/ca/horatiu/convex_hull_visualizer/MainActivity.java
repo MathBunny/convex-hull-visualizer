@@ -236,7 +236,7 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         return true;
     }
 
-    private void refresh(){
+    public void refresh(){
         if (grid == null){
             grid = new Grid(gridRenderer.getWidth(), gridRenderer.getHeight());
         }

@@ -27,9 +27,11 @@ public class SettingsActivity extends Activity implements AdapterView.OnItemSele
         Spinner edgeColor = (Spinner) findViewById(R.id.spinner);
         SeekBar sizeSeek = (SeekBar) findViewById(R.id.seekBar);
         sizeSeek.setOnSeekBarChangeListener(this); //ok??
+        sizeSeek.setProgress(Settings.SKIP_VALUE);
 
         SeekBar edgeSeek = (SeekBar) findViewById(R.id.edgeThickness);
         edgeSeek.setOnSeekBarChangeListener(this); //ok??
+        edgeSeek.setProgress(Settings.EDGE_WEIGHT);
 
         //nodeColor.set
 
