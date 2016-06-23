@@ -9,7 +9,6 @@ import ca.horatiu.convex_hull_visualizer.MainActivity;
  * Created by Horatiu on 14/06/2016.
  */
 public class MyOnScaleGestureListener extends SimpleOnScaleGestureListener{
-
     MainActivity main;
 
     public MyOnScaleGestureListener(MainActivity main){

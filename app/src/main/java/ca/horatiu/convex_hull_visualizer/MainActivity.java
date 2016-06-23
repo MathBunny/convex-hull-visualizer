@@ -66,9 +66,6 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         LinearLayout upper = (LinearLayout) findViewById(R.id.LinearLayout01);
 
         upper.addView(gridRenderer);
-        //setContentView(gridRenderer);
-
-        //setContentView(R.layout.activity_main);
 
         scaleGestureDetector = new ScaleGestureDetector(this, new MyOnScaleGestureListener(this));
         mDetector = new GestureDetectorCompat(this,this);
@@ -80,19 +77,6 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
                 // your handler code here
             }
         });
-
-        /*final Button reset = (Button) findViewById(R.id.rest);
-        reset.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // your handler code here
-                //canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                points = new ArrayList<Coordinate>();
-                refresh();
-                Log.d("Refresh", "Refreshed!");
-            }
-        });*/
-
-
     }
 
     public void settings(View v){
@@ -192,9 +176,7 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         //add here...
         int xPos = (int)event.getRawX(); //why? wtf lol
         int yPos = (int)event.getRawY() - 150;
-
         yPos = Math.max(0, yPos);
-
 
         /* Error trap :) */
         if (xPos > GridView.width){
@@ -204,7 +186,6 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         if (yPos > GridView.height){
             yPos = GridView.height-1;
         }
-
 
         int xIndex = (xPos/gridRenderer.getSkip() + gridRenderer.getXStart());
         int yIndex = (yPos/gridRenderer.getSkip() + gridRenderer.getYStart());
@@ -219,20 +200,11 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
             grid.setTrue(xPos, yPos); //good enough
 
         points.add(new Coordinate(xPos, yPos, gridRenderer.getSkip())); //change coordinates? ADD GET SKIP -> OK
-
         grid.getPoints().add(new Coordinate(xPos, yPos, 1)); //standard...
-
         gridRenderer = new GridView(this, grid, settings);
         setContentView(R.layout.activity_main);
-
         LinearLayout upper = (LinearLayout) findViewById(R.id.LinearLayout01);
-
         upper.addView(gridRenderer);
-
-        //no!
-
-        //setContentView(gridRenderer);
-
         return true;
     }
 
