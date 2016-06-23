@@ -1,5 +1,10 @@
 package ca.horatiu.convex_hull_visualizer;
 
+import android.graphics.Color;
+
+import java.util.HashMap;
+import android.graphics.Color;
+
 /**
  * Created by Horatiu on 18/06/2016.
  */
@@ -9,11 +14,29 @@ public class Coordinate implements Comparable<Coordinate> {
     private int y;
     private int skip;
     private double angle = -Double.MAX_VALUE;
+    private static HashMap<String, String> convertColor = new HashMap<String, String>();
 
     public Coordinate(int x, int y, int skip){
         this.x = x;
         this.y = y;
         this.skip = skip;
+    }
+
+    public Coordinate(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public static void populateColorConverter(){
+        convertColor.put("Blue", "#2196f3");
+        convertColor.put("Green", "#00e676");
+        convertColor.put("Pink", "#d500f9");
+        convertColor.put("Black", "#000000");
+        convertColor.put("Gray", "#9e9e9e");
+    }
+
+    public static String getCoordinateRGB(String selection){
+        return convertColor.get(selection);
     }
 
     public void setX(int x){

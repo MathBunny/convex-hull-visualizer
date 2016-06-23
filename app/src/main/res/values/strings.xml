@@ -5,4 +5,14 @@
     <string name="edge_color">Edge color:</string>
     <string name="node_color">Node color:</string>
     <string name="circle_radius">Circle radius:</string>
+    <string name="edge_thickness">Edge thickness:</string>
+
+    <string-array name="color_array">
+        <item>Blue</item>
+        <item>Green</item>
+        <item>Pink</item>
+        <item>Black</item>
+        <item>Gray</item>
+    </string-array>
+
 </resources>

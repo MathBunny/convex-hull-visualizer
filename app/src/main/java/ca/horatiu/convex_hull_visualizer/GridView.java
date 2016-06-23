@@ -34,7 +34,7 @@ public class GridView extends View{
 
     private int xStart = 0;
     private int yStart = 0;
-    private int skip = 10;
+    private static int skip = 10;
 
     public GridView(Context context, Grid grid, Settings settings) {
         super(context);
@@ -77,7 +77,7 @@ public class GridView extends View{
         Hull hull = MainActivity.getHull();
         if (hull == null || hull.getPoints().length == 0)
             return;
-        paint.setColor(Color.GREEN);
+        paint.setColor(Color.parseColor(Settings.EDGE_COLOR));
         //generate points and then wrap around!
         for(int x = 0; x < hull.getPoints().length-1; x++){ //test || NEW!
             //canvas.drawLine(hull.getPoints()[x].getX()/getSkip() + xStart, hull.getPoints()[x].getY()/getSkip() + yStart, hull.getPoints()[x+1].getX()/getSkip() + xStart, hull.getPoints()[x+1].getY()/getSkip() + yStart, paint); //you need to fix this by taking into considering xStart and everything!
@@ -92,7 +92,7 @@ public class GridView extends View{
         if (canvas == null)
             return;
         canvas.drawColor(Color.WHITE); //clear?
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.parseColor(Settings.NODE_COLOR));
         int xIter = xStart;
         int yIter = yStart;
 
@@ -126,7 +126,7 @@ public class GridView extends View{
         }
         else{ //use a LinkedList implementation instead .. lol
             for(Coordinate a : grid.getPoints()){
-                canvas.drawCircle(a.getX(), a.getY(), skip / 2, paint);
+                canvas.drawCircle(a.getX(), a.getY(), settings.SKIP_VALUE/2, paint); //skip / 2 or Settings.SKIP?
             }
         }
         drawHull();
@@ -145,8 +145,12 @@ public class GridView extends View{
         return yStart;
     }
 
-    public int getSkip(){
+    public static int getSkip(){
         return skip;
+    }
+
+    public static void setSkip(int skip){
+        GridView.skip = skip;
     }
 
 }

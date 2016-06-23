@@ -59,6 +59,7 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         settings = new Settings(Settings.DEFAULT_START_X, Settings.DEFAULT_START_Y, Settings.DEFAULT_SKIP);
+        Coordinate.populateColorConverter();
         gridRenderer = new GridView(this, grid, settings);
         setContentView(R.layout.activity_main);
 
