@@ -1,6 +1,6 @@
 #Convex Hull Visualizer
 
-The purpose of this Android app is to visualize computational geometry algorithms (ex: Graham Scan) to generate convex hulls for a series of points inputted by the user. View the app on [Google Play Store](https://play.google.com/store/apps/details?id=ca.horatiu.convex_hull_visualizer)
+The purpose of this Android app is to visualize computational geometry algorithms (ex: Graham Scan) to generate convex hulls for a series of points inputted by the user. View the app on [Google Play Store](https://play.google.com/store/apps/details?id=ca.horatiu.convex_hull_visualizer).
 
 ##Features
 * Allows user to plot points on a canvas
@@ -12,5 +12,5 @@ The purpose of this Android app is to visualize computational geometry algorithm
 * Include Grift-Wrapping Algorithm O(N*H)
 * Include nice animations
 
-##Screenshot
+##Screenshots
 ![Image Unavailable](/screenshots/ScreenshotReadme.png)
