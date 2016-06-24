@@ -14,4 +14,4 @@ This Android app is currently under development. The purpose of the program is t
 * Add nice icon
 
 ##Screenshot
-![Image Unavailable](/screenshots/Screenshot.png)
+![Image Unavailable](/screenshots/ScreenshotReadme.png)
