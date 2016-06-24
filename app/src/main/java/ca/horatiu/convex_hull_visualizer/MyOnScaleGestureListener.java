@@ -61,4 +61,6 @@ public class MyOnScaleGestureListener extends SimpleOnScaleGestureListener{
 
     @Override
     public void onScaleEnd(ScaleGestureDetector detector) {}
+
+
 }

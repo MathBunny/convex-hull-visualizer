@@ -1,6 +1,7 @@
 package ca.horatiu.convex_hull_visualizer;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -58,6 +59,7 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         settings = new Settings(Settings.DEFAULT_START_X, Settings.DEFAULT_START_Y, Settings.DEFAULT_SKIP);
         Coordinate.populateColorConverter();
         gridRenderer = new GridView(this, grid, settings);
@@ -187,8 +189,8 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
             yPos = GridView.height-1;
         }
 
-        int xIndex = (xPos/gridRenderer.getSkip() + gridRenderer.getXStart());
-        int yIndex = (yPos/gridRenderer.getSkip() + gridRenderer.getYStart());
+        int xIndex = (xPos/ GridView.getSkip() + gridRenderer.getXStart());
+        int yIndex = (yPos/ GridView.getSkip() + gridRenderer.getYStart());
 
         if (grid == null){
             grid = new Grid(gridRenderer.getWidth(), gridRenderer.getHeight());
@@ -199,7 +201,7 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         else
             grid.setTrue(xPos, yPos); //good enough
 
-        points.add(new Coordinate(xPos, yPos, gridRenderer.getSkip())); //change coordinates? ADD GET SKIP -> OK
+        points.add(new Coordinate(xPos, yPos, GridView.getSkip())); //change coordinates? ADD GET SKIP -> OK
         grid.getPoints().add(new Coordinate(xPos, yPos, 1)); //standard...
         gridRenderer = new GridView(this, grid, settings);
         setContentView(R.layout.activity_main);
@@ -219,5 +221,11 @@ public class MainActivity extends ActionBarActivity implements GestureDetector.O
         LinearLayout upper = (LinearLayout) findViewById(R.id.LinearLayout01);
 
         upper.addView(gridRenderer);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        refresh();
     }
 }

@@ -130,7 +130,7 @@ public class GridView extends View{
         }
         else{ //use a LinkedList implementation instead .. lol
             for(Coordinate a : grid.getPoints()){
-                canvas.drawCircle(a.getX(), a.getY(), settings.SKIP_VALUE/2, paint); //skip / 2 or Settings.SKIP?
+                canvas.drawCircle(a.getX(), a.getY(), Settings.SKIP_VALUE /2, paint); //skip / 2 or Settings.SKIP?
             }
         }
 
