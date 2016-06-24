@@ -14,5 +14,6 @@
         <item>Black</item>
         <item>Gray</item>
     </string-array>
+    <string name="title_activity_customization">Customization</string>
 
 </resources>

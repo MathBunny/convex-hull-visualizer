@@ -2,6 +2,7 @@ package ca.horatiu.convex_hull_visualizer;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,13 +16,14 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsActivity extends Activity implements AdapterView.OnItemSelectedListener, SeekBar.OnSeekBarChangeListener {
+public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, SeekBar.OnSeekBarChangeListener {
     LinearLayout upper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
 
         Spinner nodeColor = (Spinner) findViewById(R.id.spinner2);
         Spinner edgeColor = (Spinner) findViewById(R.id.spinner);

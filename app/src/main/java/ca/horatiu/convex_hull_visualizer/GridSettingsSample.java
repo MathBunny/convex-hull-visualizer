@@ -34,7 +34,7 @@ public class GridSettingsSample  extends View {
         /* These are the points */
         paint.setStrokeWidth(Settings.EDGE_WEIGHT);
         Coordinate a = new Coordinate(width/2, 100);
-        Coordinate b = new Coordinate(30, height-height/4);
+        Coordinate b = new Coordinate(70, height-height/4);
         Coordinate c = new Coordinate(width-70, height/2+20);
 
         //now draw the three lines
