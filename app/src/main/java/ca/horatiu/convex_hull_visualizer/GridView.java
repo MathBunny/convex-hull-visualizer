@@ -4,14 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,22 +14,39 @@ import java.util.ArrayList;
  */
 
 public class GridView extends View{
+    /** paint Paint This is the paint variable. */
     private Paint paint;
+    /** grid Grid This is the grid used on the UI. */
     private Grid grid;
+    /** canvas Canvas This is the canvas reference. */
     private Canvas canvas;
+    /** DOT_COLOR String This is the color of the default dot color. */
     public static final String DOT_COLOR = "#f44336";
+    /** mDetector GestureDetectorCompat This is the gesture detector for multi-touch gestures. */
     private GestureDetectorCompat mDetector;
+    /** main MainActivity This is the reference to the main activity. */
     private MainActivity main;
+    /** settings Settings This is the settings reference, so we can identify chosen settings. */
     private Settings settings;
+    /** points ArrayList<Coordinate> These are the points that are currently in the view. */
     private ArrayList<Coordinate> points;
-
+    /** width int This is the width of the canvas. */
     public static int width; //size of the canvas
+    /** height int This is the height of the canvas. */
     public static int height;
-
+    /** xStart int This is the x starting point. */
     private int xStart = 0;
+    /** yStart int This is the y starting point. */
     private int yStart = 0;
+    /** skip int This is the skip value on the grid. */
     private static int skip = 10;
 
+    /** This is the class constructor for a GridView
+     *
+     * @param context
+     * @param grid Grid This is the Grid reference so it can populate items there.
+     * @param settings Settings This is the Settings reference so it can show proper visuals.
+     */
     public GridView(Context context, Grid grid, Settings settings) {
         super(context);
         this.grid = grid;
@@ -50,12 +61,11 @@ public class GridView extends View{
         points = new ArrayList<Coordinate>();
     }
 
-    public ArrayList<Coordinate> getPoints(){
-        return points;
-    }
-
+    /** This is the onDraw method which draws the graphics.
+     *
+     * @param canvas This is the canvas reference variable.
+     */
     protected void onDraw(Canvas canvas) {
-        // TODO Auto-generated method stub
         super.onDraw(canvas);
         this.canvas = canvas;
         if (grid == null)
@@ -64,32 +74,26 @@ public class GridView extends View{
         paint.setStyle(Paint.Style.FILL);
         canvas.drawColor(Color.WHITE);
         paint.setColor(Color.WHITE);
-        canvas.drawPaint(paint);
-        // Use Color.parseColor to define HTML colors
+        canvas.drawPaint(paint); // Use Color.parseColor to define HTML colors
         paint.setColor(Color.parseColor(DOT_COLOR));
         refresh();
     }
 
-    public void drawGrid(){
-        
-    }
-
+    /** This method draws the hull. */
     public void drawHull(){
         Hull hull = MainActivity.getHull();
         if (hull == null || hull.getPoints().length == 0)
             return;
         paint.setColor(Color.parseColor(Settings.EDGE_COLOR));
-        paint.setStrokeWidth(Settings.EDGE_WEIGHT);
-        //generate points and then wrap around!
-        for(int x = 0; x < hull.getPoints().length-1; x++){ //test || NEW!
-            //canvas.drawLine(hull.getPoints()[x].getX()/getSkip() + xStart, hull.getPoints()[x].getY()/getSkip() + yStart, hull.getPoints()[x+1].getX()/getSkip() + xStart, hull.getPoints()[x+1].getY()/getSkip() + yStart, paint); //you need to fix this by taking into considering xStart and everything!
+        paint.setStrokeWidth(Settings.EDGE_WEIGHT); //generate points and then wrap around!
+        for(int x = 0; x < hull.getPoints().length-1; x++)
             canvas.drawLine(hull.getPoints()[x].getX(), hull.getPoints()[x].getY(), hull.getPoints()[x+1].getX(), hull.getPoints()[x+1].getY(), paint);
-        }
-        //Last line :-)
-        //canvas.drawLine(hull.getPoints()[0].getX()/getSkip() + xStart, hull.getPoints()[0].getY()/getSkip() + yStart, hull.getPoints()[hull.getPoints().length-1].getX()/getSkip() + xStart, hull.getPoints()[hull.getPoints().length-1].getY()/getSkip() + yStart, paint);
-        canvas.drawLine(hull.getPoints()[0].getX(), hull.getPoints()[0].getY(), hull.getPoints()[hull.getPoints().length-1].getX(), hull.getPoints()[hull.getPoints().length-1].getY(), paint);
+        canvas.drawLine(hull.getPoints()[0].getX(), hull.getPoints()[0].getY(), hull.getPoints()[hull.getPoints().length-1].getX(), hull.getPoints()[hull.getPoints().length-1].getY(), paint); //this is the last line.
     }
 
+    /** This method refreshes the canvas.
+     * If skip is permitted then the graph is drawn to scale. Otherwise, it goes through the LinkedList populating the screen.
+     */
     public void refresh(){
         if (canvas == null)
             return;
@@ -137,22 +141,34 @@ public class GridView extends View{
         //invalidate();
     }
 
-    public Grid getGrid(){
-        return grid;
-    }
-
+    /** This method returns the xStart.
+     *
+     * @return int Returns the x start.
+     */
     public int getXStart(){
         return xStart;
     }
 
+    /**
+     * This method returns the y start.
+     * @return int This is the y start.
+     */
     public int getYStart(){
         return yStart;
     }
 
+    /** This method returns the skip value.
+     *
+     * @return int This is the skip value.
+     */
     public static int getSkip(){
         return skip;
     }
 
+    /** This method sets the skip value.
+     *
+     * @param skip
+     */
     public static void setSkip(int skip){
         GridView.skip = skip;
     }

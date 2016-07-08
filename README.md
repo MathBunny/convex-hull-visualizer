@@ -7,10 +7,10 @@ The purpose of this Android app is to visualize computational geometry algorithm
 * Permits user to customize canvas using multi-touch gestures and through settings screen
 * Features color customization and edge/node size
 * Generates convex hull using Graham Scan algorithm in O(NlogN) time
+* JavaDoc Documentation
 
 ##Further Development
 * Include Grift-Wrapping Algorithm O(N*H)
-* Include nice animations
 
 ##Screenshots
 ![Image Unavailable](/screenshots/ScreenshotReadme.png)

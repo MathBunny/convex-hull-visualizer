@@ -1,12 +1,14 @@
 package ca.horatiu.convex_hull_visualizer;
 
 /**
- * Created by Horatiu on 19/06/2016.
+ * This class is another utility class used to order coordinates by polar order.
+ * @Horatiu Lazu
  */
 import java.util.*;
 
 
 class PolarOrder implements Comparator<Coordinate>{
+    /** This method compares coordinates if they are left/right to each other. */
     public int compare(Coordinate p1, Coordinate p2){
         if(p1.getY()==0&&p1.getX()>0) return 1; //angle of p1 is 0, thus p2>p1
         if(p2.getY()==0&&p2.getX()>0) return -1; //angle of p2 is 0 , thus p1>p2

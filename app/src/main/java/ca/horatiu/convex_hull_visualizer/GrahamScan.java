@@ -6,15 +6,28 @@ import java.util.Arrays;
 import java.util.Stack;
 
 /**
+ * This class applies the Graham Scan algorithm to determine the convex hull of a series of points.
  * Created by Horatiu on 18/06/2016.
  */
 public class GrahamScan {
+    /** arr Coordinate [] This is the array with coordinates. */
     private Coordinate [] arr;
 
+    /**
+     * This is the class constructor of the points class.
+     * @param points These are the points that Graham Scan needs to construct.
+     */
     public GrahamScan(Coordinate [] points){
         this.arr = points;
     }
 
+    /**
+     * This method solves for a convex hull based off of its points.
+     * It uses the Graham scan algorithm in O(nlogn) time complexity.
+     * First sort all of the angles in counter-clockwise order in respect to the x axis.
+     * Secondly, create vectors joining the points. Everytime you do a right turn, pop the previous vector out of the queue.
+     * @return Coordinate [] This is the hull.
+     */
     public Coordinate [] solve(){
         int N = arr.length;
         if (N <= 1){

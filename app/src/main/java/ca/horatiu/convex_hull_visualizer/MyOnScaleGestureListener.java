@@ -3,18 +3,25 @@ import android.util.Log;
 import android.view.ScaleGestureDetector;
 import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener;
 
-import ca.horatiu.convex_hull_visualizer.MainActivity;
-
-/**
- * Created by Horatiu on 14/06/2016.
+/** This class detects pinch/zoom to change the weight of the edges and nodes.
+ * @author Horatiu Lazu
  */
 public class MyOnScaleGestureListener extends SimpleOnScaleGestureListener{
     MainActivity main;
 
+    /**
+     * This is the class constructor.
+     * @param main This is the new main reference variable.
+     */
     public MyOnScaleGestureListener(MainActivity main){
         this.main = main;
     }
 
+    /** This method is called whenever a pinch/zoom happened.
+     * It adjusts the skip value and scale factor accordingly.
+     * @param detector This is the detector reference.
+     * @return boolean This indicates if any pinch/zoom happened.
+     */
     @Override
     public boolean onScale(ScaleGestureDetector detector) {
         Log.d("size", detector.getScaleFactor() + "");
@@ -30,8 +37,6 @@ public class MyOnScaleGestureListener extends SimpleOnScaleGestureListener{
             if (Settings.SKIP_VALUE < 80){
                 Settings.SKIP_VALUE++;
             }
-
-            //skipValue = 20;
         }
         else{
             if (skipValue > 5)
@@ -43,7 +48,6 @@ public class MyOnScaleGestureListener extends SimpleOnScaleGestureListener{
             if (Settings.SKIP_VALUE >= 1){
                 Settings.SKIP_VALUE--;
             }
-            //skipValue = 5;
         }
 
         //IGNORE ALL RESIZING FOR NOW!!!!! NO MORE!!!
@@ -54,11 +58,19 @@ public class MyOnScaleGestureListener extends SimpleOnScaleGestureListener{
         return true;
     }
 
+    /**
+     * This method determines if any scaling has occured, and if it started it returns true.
+     * @param detector
+     * @return
+     */
     @Override
     public boolean onScaleBegin(ScaleGestureDetector detector) {
         return true;
     }
 
+    /** This method is called when scaling has stopped.
+     * @param detector
+     */
     @Override
     public void onScaleEnd(ScaleGestureDetector detector) {}
 

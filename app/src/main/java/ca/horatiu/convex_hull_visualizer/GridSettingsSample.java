@@ -10,13 +10,21 @@ import android.view.View;
 import java.util.ArrayList;
 
 /**
+ * This method draws a sample grid in the settings.
  * Created by Horatiu on 22/06/2016.
  */
 public class GridSettingsSample  extends View {
+    /** width int This is the width of the sample. */
     private int width;
+    /** height int This is the height of the sample. */
     private int height;
+    /** paint Paint This is the paint.*/
     Paint paint;
 
+    /**
+     * This method sets up the draw style and colors, along with height and width.
+     * @param canvas Canvas This is the canvas where the graphics are drawn.
+     */
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         paint = new Paint();
@@ -30,6 +38,10 @@ public class GridSettingsSample  extends View {
         drawSample(canvas);
     }
 
+    /**
+     * This method draws the sample with a triangle and given settings.
+     * @param canvas Canvas This is the canvas where the lines are drawn.
+     */
     public void drawSample(Canvas canvas){
         /* These are the points */
         paint.setStrokeWidth(Settings.EDGE_WEIGHT);
@@ -51,10 +63,19 @@ public class GridSettingsSample  extends View {
 
     }
 
+    /** This method draws a point (circle) on the canvas.
+     *
+     * @param canvas Canvas This is the canvas.
+     * @param point Coordinate This is the coordinate of the point.
+     */
     public void drawPoint(Canvas canvas, Coordinate point){
         canvas.drawCircle(point.getX(), point.getY(), Settings.SKIP_VALUE/2, paint);
     }
 
+    /**
+     * This is the class constructor of the class.
+     * @param context
+     */
     public GridSettingsSample(Context context) {
         super(context);
     }
